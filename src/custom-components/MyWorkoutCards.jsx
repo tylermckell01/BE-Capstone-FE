@@ -4,8 +4,6 @@ import Cookies from "js-cookie";
 export default function MyWorkoutCards() {
   const [yourWorkoutData, setYourWorkoutData] = useState([]);
   const [editingWorkout, setEditingWorkout] = useState(null);
-  // find a way to make so that if this is true, then it will
-  // render the text fields as input fields
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -35,7 +33,7 @@ export default function MyWorkoutCards() {
 
   const editWorkout = (workout) => {
     console.log("edit workout", workout);
-    // setIsEditing(true)
+    setIsEditing(true);
     setEditingWorkout(workout);
   };
 
@@ -43,6 +41,7 @@ export default function MyWorkoutCards() {
     // UPDATE apicall here?
     console.log("edited workout saved");
     setEditingWorkout(null);
+    setIsEditing(false);
   };
 
   const renderWorkoutdata = () => {
@@ -53,13 +52,37 @@ export default function MyWorkoutCards() {
     return yourWorkoutData?.map((workout, idx) => {
       return (
         <div className="workout-info" key={idx}>
-          <div className="workout-name">{workout.workout_name}</div>
-          <div className="workout-description">{workout.description}</div>
+          <div className="workout-name">
+            {isEditing && editingWorkout === workout ? (
+              <input type="text" defaultValue={workout.workout_name} />
+            ) : (
+              workout.workout_name
+            )}
+          </div>
+          <div className="workout-description">
+            {isEditing && editingWorkout === workout ? (
+              <input type="text" defaultValue={workout.description} />
+            ) : (
+              workout.description
+            )}
+          </div>
           <div className="workout-exercises">
             {workout.exercises.map((exercise, exerciseIdx) => (
               <div key={exerciseIdx}>
-                <div className="exercise-name">{exercise.exercise_name}</div>
-                <div className="muscles-worked">{exercise.muscles_worked}</div>
+                <div className="exercise-name">
+                  {isEditing && editingWorkout === workout ? (
+                    <input type="text" defaultValue={exercise.exercise_name} />
+                  ) : (
+                    exercise.exercise_name
+                  )}
+                </div>
+                <div className="muscles-worked">
+                  {isEditing && editingWorkout === workout ? (
+                    <input type="text" defaultValue={exercise.muscles_worked} />
+                  ) : (
+                    exercise.muscles_worked
+                  )}
+                </div>
               </div>
             ))}
           </div>
