@@ -1,0 +1,17 @@
+.new-user-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .new-user-form {
+    border: solid 1px blue;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      width: 200px;
+    }
+  }
+}

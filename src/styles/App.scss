@@ -1,0 +1,13 @@
+@import "./common/variables.scss";
+@import "./common/mixins.scss";
+@import "./common/common.scss";
+
+@import "./navigation/header.scss";
+@import "./navigation/footer.scss";
+
+@import "./pages/newworkoutform.scss";
+@import "./pages/newgymform.scss";
+@import "./pages/newexerciseform.scss";
+@import "./pages/newuserform.scss";
+
+@import "./custom-components/myworkoutcards.scss";

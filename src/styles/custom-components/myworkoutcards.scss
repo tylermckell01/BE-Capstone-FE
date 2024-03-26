@@ -1,0 +1,26 @@
+.cards-wrapper {
+  border: solid 1px blue;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 60px;
+  gap: 20px;
+
+  .workout-info {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+
+    .workout-name {
+      border: solid 1px green;
+    }
+
+    .workout-description {
+      border: solid 1px darkcyan;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

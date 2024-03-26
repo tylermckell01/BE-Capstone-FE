@@ -1,0 +1,28 @@
+.header-container {
+  background-color: $nav-background;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+
+  .header-wrapper {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+
+    .header-link {
+      color: $tab-links;
+      text-decoration: none;
+      padding: 5px;
+      border-left: solid 1px $tab-links;
+      border-right: solid 1px $tab-links;
+    }
+
+    button {
+      background: none;
+    }
+  }
+}
