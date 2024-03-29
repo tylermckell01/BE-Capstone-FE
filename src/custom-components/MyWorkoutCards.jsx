@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { select } from "neo-async";
+// import { select } from "neo-async";
 
 export default function MyWorkoutCards() {
   const [yourWorkoutData, setYourWorkoutData] = useState([]);
   const [yourExerciseData, setYourExerciseData] = useState([]);
+  const [workoutExerciseId, setWorkoutExerciseId] = useState({
+    workout_id: "",
+    exercise_id: "",
+  });
 
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [addExerciseButton, setAddExerciseButton] = useState(false);
 
   // I need to get these two functions to render when the save button is clicked, it is correctly updating the
   // actual db, but needs to render on save
@@ -46,17 +51,7 @@ export default function MyWorkoutCards() {
       .then((data) => {
         setYourExerciseData(data.result);
       });
-    console.log("exercise data:", yourExerciseData);
-  };
-
-  const deleteWorkout = () => {
-    console.log("delete workout");
-  };
-
-  const editWorkout = (workout) => {
-    // console.log("edit workout", workout);
-    setIsEditing(true);
-    setEditingWorkout(workout);
+    // console.log("exercise data:", yourExerciseData);
   };
 
   const saveEditedWorkout = async () => {
@@ -72,9 +67,58 @@ export default function MyWorkoutCards() {
     });
 
     console.log("after pressing save button piece of state", yourWorkoutData);
-    console.log("edited workout saved");
+    // yourWorkoutData.forEach((workout) => {
+    //   console.log("added workout id", workout.workout_id);
+    //   workout.exercises.forEach((exercise) => {
+    //     console.log("added exercise id", exercise.exercise_id);
+    //   });
+    // });
+
+    // console.log("edited workout saved");
+    // fetchWorkoutData();
     setEditingWorkout(null);
     setIsEditing(false);
+    setAddExerciseButton(false);
+  };
+
+  const addExerciseToWorkout = async (workoutId, exerciseId) => {
+    let authToken = Cookies.get("auth_token");
+
+    const response = await fetch("http://127.0.0.1:8086/workout/exercise", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        auth: authToken,
+      },
+      body: JSON.stringify({ workout_id: workoutId, exercise_id: exerciseId }),
+    })
+      .then((res) => res.json())
+      .then((data) => data);
+
+    // console.log("res: ", response);
+    console.log("workout_id", workoutId);
+    console.log("exercise_id", exerciseId);
+
+    if (response) {
+      await fetchWorkoutData();
+      return response;
+    } else {
+      console.error("workout/exercise xref failed");
+    }
+  };
+
+  const deleteWorkout = () => {
+    console.log("delete workout");
+  };
+
+  const editWorkout = (workout) => {
+    // console.log("edit workout", workout);
+    setIsEditing(true);
+    setEditingWorkout(workout);
+  };
+
+  const addExercise = () => {
+    setAddExerciseButton(true);
   };
 
   const renderWorkoutdata = () => {
@@ -183,10 +227,33 @@ export default function MyWorkoutCards() {
           </div>
           <div className="button-container">
             <button onClick={() => editWorkout(workout)}>edit</button>
-            <button onClick={deleteWorkout}>delete</button>
+            {isEditing && editingWorkout.workout_id === workout.workout_id && (
+              <button onClick={deleteWorkout}>delete</button>
+            )}
           </div>
           {isEditing && editingWorkout.workout_id === workout.workout_id && (
             <div className="edit-modal">
+              {addExerciseButton ? (
+                <select
+                  onChange={(e) =>
+                    addExerciseToWorkout(workout.workout_id, e.target.value)
+                  }
+                >
+                  <option value="none"></option>
+                  {yourExerciseData.map((exercise) => (
+                    <option
+                      key={exercise.exercise_id}
+                      value={exercise.exercise_id}
+                    >
+                      {exercise.exercise_name}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <div></div>
+              )}
+              <button onClick={addExercise}>add exercise</button>
+
               <button
                 onClick={() => {
                   saveEditedWorkout();
