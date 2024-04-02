@@ -31,6 +31,7 @@ export default function MyWorkoutCards() {
       .then((res) => res.json())
       .then((data) => {
         setYourWorkoutData(data.result);
+        // console.log("updated workout data:", data.result);
       });
 
     // console.log("piece of state", yourWorkoutData);
@@ -49,14 +50,6 @@ export default function MyWorkoutCards() {
       .then((data) => {
         setYourExerciseData(data.result);
       });
-
-    // if (response) {
-    //   await fetchWorkoutData();
-    //   return response;
-    // } else {
-    //   console.error("GET exercises failed");
-    // }
-    // console.log("exercise data:", yourExerciseData);
   };
 
   const saveEditedWorkout = async () => {
@@ -74,25 +67,17 @@ export default function MyWorkoutCards() {
       }
     );
 
-    console.log("after pressing save button piece of state", yourWorkoutData);
-    console.log(
-      "after pressing save button 'editingWorkout'",
-      editingWorkout.exercises.exercise_name
-    );
-
-    // yourWorkoutData.forEach((workout) => {
-    //   console.log("added workout id", workout.workout_id);
-    //   workout.exercises.forEach((exercise) => {
-    //     console.log("added exercise id", exercise.exercise_id);
-    //   });
-    // });
     if (response) {
+      console.log("after pressing save button piece of state", yourWorkoutData);
+      // console.log("editingWorkout workout_id", editingWorkout.workout_id);
       await fetchWorkoutData();
+      await fetchExerciseData();
+      setIsEditing(false);
       return response;
     } else {
       console.error("UPDATE workout failed");
     }
-    setIsEditing(false);
+    // setIsEditing(false);
   };
 
   // adding the exercise to a specific workout card kind of works, but it only allows
@@ -140,8 +125,8 @@ export default function MyWorkoutCards() {
 
   const editWorkout = (workout) => {
     // console.log("edit workout", workout);
-    setIsEditing(true);
     setEditingWorkout(workout);
+    setIsEditing(true);
   };
 
   const addExercise = () => {
@@ -222,35 +207,7 @@ export default function MyWorkoutCards() {
                     exercise.exercise_name
                   )}
                 </div>
-                <div className="muscles-worked">
-                  {isEditing &&
-                  editingWorkout.workout_id === workout.workout_id ? (
-                    <label htmlFor="muscles-worked">
-                      <select
-                        name="muscles-worked"
-                        id="muscles-worked"
-                        value={exercise.muscles_worked}
-                        onChange={(e) =>
-                          setEditingWorkout({
-                            ...editingWorkout,
-                            muscles_worked: e.target.value,
-                          })
-                        }
-                      >
-                        {yourExerciseData.map((exercise) => (
-                          <option
-                            key={exercise.exercise_id}
-                            value={exercise.muscles_worked}
-                          >
-                            {exercise.muscles_worked}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  ) : (
-                    exercise.muscles_worked
-                  )}
-                </div>
+                <div className="muscles-worked">{exercise.muscles_worked}</div>
               </div>
             ))}
           </div>
@@ -265,10 +222,7 @@ export default function MyWorkoutCards() {
               <select
                 onChange={(e) => {
                   addExerciseToWorkout(workout.workout_id, e.target.value);
-                  // setEditingWorkout({
-                  //   ...editingWorkout,
-                  //   exercise_name: e.target.value,
-                  // });
+                  // saveEditedWorkout();
                 }}
               >
                 <option value="none"></option>
