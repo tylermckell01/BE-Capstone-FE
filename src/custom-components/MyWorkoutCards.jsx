@@ -5,14 +5,12 @@ import Cookies from "js-cookie";
 export default function MyWorkoutCards() {
   const [yourWorkoutData, setYourWorkoutData] = useState([]);
   const [yourExerciseData, setYourExerciseData] = useState([]);
-  const [workoutExerciseId, setWorkoutExerciseId] = useState({
-    workout_id: "",
-    exercise_id: "",
-  });
 
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [addExerciseButton, setAddExerciseButton] = useState(false);
+
+  // i think I can get rid of addExerciseButton piece of state
+  // const [addExerciseButton, setAddExerciseButton] = useState(false);
 
   // I need to get these two functions to render when the save button is clicked, it is correctly updating the
   // actual db, but needs to render on save
@@ -51,36 +49,54 @@ export default function MyWorkoutCards() {
       .then((data) => {
         setYourExerciseData(data.result);
       });
+
+    // if (response) {
+    //   await fetchWorkoutData();
+    //   return response;
+    // } else {
+    //   console.error("GET exercises failed");
+    // }
     // console.log("exercise data:", yourExerciseData);
   };
 
   const saveEditedWorkout = async () => {
     if (!editingWorkout) return;
     let authToken = Cookies.get("auth_token");
-    await fetch(`http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        auth: authToken,
-      },
-      body: JSON.stringify(editingWorkout),
-    });
+    const response = await fetch(
+      `http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          auth: authToken,
+        },
+        body: JSON.stringify(editingWorkout),
+      }
+    );
 
     console.log("after pressing save button piece of state", yourWorkoutData);
+    console.log(
+      "after pressing save button 'editingWorkout'",
+      editingWorkout.exercises.exercise_name
+    );
+
     // yourWorkoutData.forEach((workout) => {
     //   console.log("added workout id", workout.workout_id);
     //   workout.exercises.forEach((exercise) => {
     //     console.log("added exercise id", exercise.exercise_id);
     //   });
     // });
-
-    // console.log("edited workout saved");
-    // fetchWorkoutData();
-    setEditingWorkout(null);
+    if (response) {
+      await fetchWorkoutData();
+      return response;
+    } else {
+      console.error("UPDATE workout failed");
+    }
     setIsEditing(false);
-    setAddExerciseButton(false);
   };
 
+  // adding the exercise to a specific workout card kind of works, but it only allows
+  // 1 overall exercise to be added to 1 overall workout
   const addExerciseToWorkout = async (workoutId, exerciseId) => {
     let authToken = Cookies.get("auth_token");
 
@@ -94,6 +110,17 @@ export default function MyWorkoutCards() {
     })
       .then((res) => res.json())
       .then((data) => data);
+
+    setYourWorkoutData((prevWorkouts) =>
+      prevWorkouts.map((workout) =>
+        workout.workout_id === workoutId
+          ? {
+              ...workout,
+              exercises: [...workout.exercises, { exercise_id: exerciseId }],
+            }
+          : workout
+      )
+    );
 
     // console.log("res: ", response);
     console.log("workout_id", workoutId);
@@ -118,7 +145,9 @@ export default function MyWorkoutCards() {
   };
 
   const addExercise = () => {
-    setAddExerciseButton(true);
+    // setAddExerciseButton(true);
+    // saveEditedWorkout();
+    // addExerciseToWorkout()
   };
 
   const renderWorkoutdata = () => {
@@ -233,27 +262,26 @@ export default function MyWorkoutCards() {
           </div>
           {isEditing && editingWorkout.workout_id === workout.workout_id && (
             <div className="edit-modal">
-              {addExerciseButton ? (
-                <select
-                  onChange={(e) =>
-                    addExerciseToWorkout(workout.workout_id, e.target.value)
-                  }
-                >
-                  <option value="none"></option>
-                  {yourExerciseData.map((exercise) => (
-                    <option
-                      key={exercise.exercise_id}
-                      value={exercise.exercise_id}
-                    >
-                      {exercise.exercise_name}
-                    </option>
-                  ))}
-                </select>
-              ) : (
-                <div></div>
-              )}
+              <select
+                onChange={(e) => {
+                  addExerciseToWorkout(workout.workout_id, e.target.value);
+                  // setEditingWorkout({
+                  //   ...editingWorkout,
+                  //   exercise_name: e.target.value,
+                  // });
+                }}
+              >
+                <option value="none"></option>
+                {yourExerciseData.map((exercise) => (
+                  <option
+                    key={exercise.exercise_id}
+                    value={exercise.exercise_id}
+                  >
+                    {exercise.exercise_name}
+                  </option>
+                ))}
+              </select>
               <button onClick={addExercise}>add exercise</button>
-
               <button
                 onClick={() => {
                   saveEditedWorkout();
