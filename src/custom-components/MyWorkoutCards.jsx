@@ -9,15 +9,14 @@ export default function MyWorkoutCards() {
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // i think I can get rid of addExerciseButton piece of state
-  // const [addExerciseButton, setAddExerciseButton] = useState(false);
-
-  // I need to get these two functions to render when the save button is clicked, it is correctly updating the
-  // actual db, but needs to render on save
   useEffect(() => {
     fetchWorkoutData();
     fetchExerciseData();
   }, []);
+
+  // useEffect(() => {
+  //   console.log("changed", editingWorkout);
+  // }, [editingWorkout]);
 
   const fetchWorkoutData = async () => {
     let authToken = Cookies.get("auth_token");
@@ -31,10 +30,7 @@ export default function MyWorkoutCards() {
       .then((res) => res.json())
       .then((data) => {
         setYourWorkoutData(data.result);
-        // console.log("updated workout data:", data.result);
       });
-
-    // console.log("piece of state", yourWorkoutData);
   };
 
   const fetchExerciseData = async () => {
@@ -52,9 +48,15 @@ export default function MyWorkoutCards() {
       });
   };
 
+  // clicking save button in editmodal
   const saveEditedWorkout = async () => {
-    if (!editingWorkout) return;
+    // if (!editingWorkout) return;
     let authToken = Cookies.get("auth_token");
+
+    const { workout_name, description } = editingWorkout;
+
+    const updatedWorkoutInfo = { workout_name, description };
+
     const response = await fetch(
       `http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`,
       {
@@ -63,25 +65,23 @@ export default function MyWorkoutCards() {
           "Content-Type": "application/json",
           auth: authToken,
         },
-        body: JSON.stringify(editingWorkout),
+        body: JSON.stringify(updatedWorkoutInfo),
       }
     );
 
     if (response) {
-      console.log("after pressing save button piece of state", yourWorkoutData);
-      // console.log("editingWorkout workout_id", editingWorkout.workout_id);
-      await fetchWorkoutData();
       await fetchExerciseData();
+      await fetchWorkoutData();
+      // console.log("editingWorkout:", editingWorkout);
+      // console.log("after pressing save button piece of state", yourWorkoutData);
       setIsEditing(false);
       return response;
     } else {
       console.error("UPDATE workout failed");
     }
-    // setIsEditing(false);
   };
 
-  // adding the exercise to a specific workout card kind of works, but it only allows
-  // 1 overall exercise to be added to 1 overall workout
+  // onchange for selecting a workout in the edit workout modal
   const addExerciseToWorkout = async (workoutId, exerciseId) => {
     let authToken = Cookies.get("auth_token");
 
@@ -108,19 +108,40 @@ export default function MyWorkoutCards() {
     );
 
     // console.log("res: ", response);
-    console.log("workout_id", workoutId);
-    console.log("exercise_id", exerciseId);
+    // console.log("workout_id", workoutId);
+    // console.log("exercise_id", exerciseId);
 
     if (response) {
       await fetchWorkoutData();
+      await fetchExerciseData();
       return response;
     } else {
       console.error("workout/exercise xref failed");
     }
   };
 
-  const deleteWorkout = () => {
-    console.log("delete workout");
+  const deleteWorkout = async () => {
+    let authToken = Cookies.get("auth_token");
+
+    const response = await fetch(
+      `http://127.0.0.1:8086/workout/delete/${editingWorkout.workout_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          auth: authToken,
+        },
+      }
+    );
+
+    if (response) {
+      // await fetchExerciseData();
+      await fetchWorkoutData();
+      // console.log("deleted workout");
+      return response;
+    } else {
+      console.error("DELETE workout failed");
+    }
   };
 
   const editWorkout = (workout) => {
@@ -129,11 +150,22 @@ export default function MyWorkoutCards() {
     setIsEditing(true);
   };
 
-  const addExercise = () => {
-    // setAddExerciseButton(true);
-    // saveEditedWorkout();
-    // addExerciseToWorkout()
-  };
+  // const deleteExercise = async (exerciseId) => {
+  //   let authToken = Cookies.get("auth_token");
+
+  //   const response = await fetch(
+  //     `http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`,
+  //     {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         auth: authToken,
+  //       },
+  //       body: JSON.stringify(editingWorkout.exercises.exerciseId),
+  //     }
+  //   );
+
+  // };
 
   const renderWorkoutdata = () => {
     if (yourWorkoutData.length === 0) {
@@ -185,13 +217,17 @@ export default function MyWorkoutCards() {
                       <select
                         name="exercise-names"
                         id="exercise-names"
-                        value={exercise.exercise_name}
-                        onChange={(e) =>
-                          setEditingWorkout({
+                        defaultValue={exercise.exercise_name}
+                        onChange={(e) => {
+                          // console.log(
+                          //   "editingWorkout.exercises:",
+                          //   editingWorkout.exercises
+                          // );
+                          setEditingWorkout((prev) => ({
                             ...editingWorkout,
-                            exercise_name: e.target.value,
-                          })
-                        }
+                            exercises: [...prev.exercises, e.target.value],
+                          }));
+                        }}
                       >
                         {yourExerciseData.map((exercise) => (
                           <option
@@ -202,9 +238,14 @@ export default function MyWorkoutCards() {
                           </option>
                         ))}
                       </select>
+                      {/* <button
+                        onClick={() => deleteExercise(exercise.exercise_id)}
+                      >
+                        -
+                      </button> */}
                     </label>
                   ) : (
-                    exercise.exercise_name
+                    <div>{exercise.exercise_name}</div>
                   )}
                 </div>
                 <div className="muscles-worked">{exercise.muscles_worked}</div>
@@ -213,16 +254,21 @@ export default function MyWorkoutCards() {
           </div>
           <div className="button-container">
             <button onClick={() => editWorkout(workout)}>edit</button>
+
             {isEditing && editingWorkout.workout_id === workout.workout_id && (
-              <button onClick={deleteWorkout}>delete</button>
+              <button onClick={deleteWorkout}>delete workout</button>
             )}
           </div>
           {isEditing && editingWorkout.workout_id === workout.workout_id && (
             <div className="edit-modal">
               <select
                 onChange={(e) => {
+                  // console.log("exercise_name target:", e.target.value);
+                  setEditingWorkout((prev) => ({
+                    ...editingWorkout,
+                    exercises: [...prev.exercises, e.target.value],
+                  }));
                   addExerciseToWorkout(workout.workout_id, e.target.value);
-                  // saveEditedWorkout();
                 }}
               >
                 <option value="none"></option>
@@ -231,11 +277,13 @@ export default function MyWorkoutCards() {
                     key={exercise.exercise_id}
                     value={exercise.exercise_id}
                   >
+                    {/* {editWorkout.exercises} */}
+
                     {exercise.exercise_name}
                   </option>
                 ))}
               </select>
-              <button onClick={addExercise}>add exercise</button>
+              {/* <button onClick={addExercise}>add exercise</button> */}
               <button
                 onClick={() => {
                   saveEditedWorkout();
