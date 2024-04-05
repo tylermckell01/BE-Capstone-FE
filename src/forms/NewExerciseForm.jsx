@@ -8,6 +8,8 @@ export default function NewExerciseForm() {
   });
 
   const [exerciseData, setExerciseData] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedExerciseName, setEditedExerciseName] = useState(null);
 
   useEffect(() => {
     fetchExerciseData();
@@ -59,6 +61,36 @@ export default function NewExerciseForm() {
     }
   };
 
+  const editExercise = (exercise) => {
+    setIsEditing(true);
+    editExerciseName(exercise);
+  };
+
+  const editExerciseName = async (exercise) => {
+    let authToken = Cookies.get("auth_token");
+
+    const response = await fetch(
+      `http://127.0.0.1:8086/exercise/${exercise.exercise_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          auth: authToken,
+        },
+        body: JSON.stringify({ exercise_name: editedExerciseName }),
+      }
+    );
+
+    if (response) {
+      await fetchExerciseData();
+      console.log("Updated exercise");
+      setIsEditing(false);
+      return response;
+    } else {
+      console.error("Update Exercise failed");
+    }
+  };
+
   const fetchExerciseData = async () => {
     let authToken = Cookies.get("auth_token");
     await fetch("http://127.0.0.1:8086/exercises", {
@@ -77,7 +109,11 @@ export default function NewExerciseForm() {
   const handleFieldUpdate = (e) => {
     const { name, value } = e.target;
 
-    setFormData((previous) => ({ ...previous, [name]: value }));
+    if (isEditing) {
+      setEditedExerciseName(value);
+    } else {
+      setFormData((previous) => ({ ...previous, [name]: value }));
+    }
   };
 
   const addExerciseForm = () => {
@@ -122,13 +158,30 @@ export default function NewExerciseForm() {
     return exerciseData?.map((exercise, idx) => {
       return (
         <div className="exercise-wrapper" key={idx}>
-          <div className="exercise-name">
-            Exercise Name: {exercise.exercise_name}
-          </div>
+          {isEditing && editedExerciseName !== null ? (
+            <input
+              id="editing-exercise-name"
+              name="editing-exercise_name"
+              value={exercise.exercise_name}
+              type="text"
+              className="editing-exercise-name"
+              onChange={handleFieldUpdate}
+            />
+          ) : (
+            <div className="exercise-name">
+              Exercise Name: {exercise.exercise_name}
+            </div>
+          )}
           <div className="muscles-worked">
             Muscles Worked: {exercise.muscles_worked}
           </div>
-          <button>edit</button>
+          {isEditing ? (
+            <button onClick={() => editExerciseName(exercise.exercise_id)}>
+              Save
+            </button>
+          ) : (
+            <button onClick={() => editExercise(exercise)}>Edit</button>
+          )}
           <button onClick={() => deleteExercise(exercise.exercise_id)}>
             delete
           </button>
