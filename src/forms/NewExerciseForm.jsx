@@ -29,8 +29,6 @@ export default function NewExerciseForm() {
     });
 
     if (response) {
-      console.log("create new exercise successful");
-      console.log(response);
       await fetchExerciseData();
       return response;
     } else {
@@ -54,16 +52,14 @@ export default function NewExerciseForm() {
 
     if (response) {
       await fetchExerciseData();
-      console.log("deleted exercise");
       return response;
     } else {
       console.error("DELETE Exercise failed");
     }
   };
 
-  const editExercise = (exercise) => {
+  const editExercise = () => {
     setIsEditing(true);
-    editExerciseName(exercise);
   };
 
   const editExerciseName = async (exercise) => {
@@ -83,8 +79,6 @@ export default function NewExerciseForm() {
 
     if (response) {
       await fetchExerciseData();
-      console.log("Updated exercise");
-      setIsEditing(false);
       return response;
     } else {
       console.error("Update Exercise failed");
@@ -153,16 +147,15 @@ export default function NewExerciseForm() {
     if (exerciseData.length === 0) {
       return <div>No Exercise Data</div>;
     }
-    // console.log(exerciseData);
 
     return exerciseData?.map((exercise, idx) => {
       return (
         <div className="exercise-wrapper" key={idx}>
-          {isEditing && editedExerciseName !== null ? (
+          {isEditing ? (
             <input
               id="editing-exercise-name"
               name="editing-exercise_name"
-              value={exercise.exercise_name}
+              defaultValue={exercise.exercise_name}
               type="text"
               className="editing-exercise-name"
               onChange={handleFieldUpdate}
@@ -176,11 +169,16 @@ export default function NewExerciseForm() {
             Muscles Worked: {exercise.muscles_worked}
           </div>
           {isEditing ? (
-            <button onClick={() => editExerciseName(exercise.exercise_id)}>
+            <button
+              onClick={() => {
+                editExerciseName(exercise);
+                setIsEditing(false);
+              }}
+            >
               Save
             </button>
           ) : (
-            <button onClick={() => editExercise(exercise)}>Edit</button>
+            <button onClick={() => editExercise()}>Edit</button>
           )}
           <button onClick={() => deleteExercise(exercise.exercise_id)}>
             delete
