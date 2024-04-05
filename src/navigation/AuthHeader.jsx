@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { useAuthInfo } from "../context/AuthContext";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function AuthHeader() {
+  const history = useHistory();
   const { logout, isLoggedIn } = useAuthInfo();
+
+  const handleLogout = () => {
+    logout();
+    history.push("/");
+  };
 
   return (
     <div className="header-container">
@@ -39,7 +46,7 @@ export default function AuthHeader() {
           users
         </NavLink>
 
-        <button onClick={logout} className="header-link">
+        <button onClick={handleLogout} className="header-link">
           Log out
         </button>
       </div>
