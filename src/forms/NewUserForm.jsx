@@ -233,7 +233,7 @@ export default function NewUserForm() {
               }
             />
           ) : (
-            <div className="email">email: {user.email}</div>
+            <div className="email">Email: {user.email}</div>
           )}
           {isEditing ? (
             <input
