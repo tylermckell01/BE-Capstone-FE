@@ -63,6 +63,11 @@ export default function NewExerciseForm() {
   };
 
   const editExerciseName = async (exercise) => {
+    if (!editedExerciseName) {
+      console.error("edited exercise name is empty");
+      return;
+    }
+
     let authToken = Cookies.get("auth_token");
 
     const response = await fetch(

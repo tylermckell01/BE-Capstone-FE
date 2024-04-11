@@ -50,7 +50,11 @@ export default function MyWorkoutCards() {
 
   // clicking save button in editmodal
   const saveEditedWorkout = async () => {
-    // if (!editingWorkout) return;
+    if (!editingWorkout) {
+      console.error("edited exercise name is empty");
+      return;
+    }
+
     let authToken = Cookies.get("auth_token");
 
     const { workout_name, description } = editingWorkout;
@@ -75,6 +79,8 @@ export default function MyWorkoutCards() {
       // console.log("editingWorkout:", editingWorkout);
       // console.log("after pressing save button piece of state", yourWorkoutData);
       setIsEditing(false);
+      // setEditingWorkout(null);
+
       return response;
     } else {
       console.error("UPDATE workout failed");
@@ -137,6 +143,7 @@ export default function MyWorkoutCards() {
     if (response) {
       // await fetchExerciseData();
       await fetchWorkoutData();
+      // setEditingWorkout(null);
       // console.log("deleted workout");
       return response;
     } else {
@@ -177,34 +184,40 @@ export default function MyWorkoutCards() {
         <div className="workout-info" key={idx}>
           <div className="workout-name">
             {isEditing && editingWorkout.workout_id === workout.workout_id ? (
-              <input
-                type="text"
-                defaultValue={workout.workout_name}
-                onChange={(e) =>
-                  setEditingWorkout({
-                    ...editingWorkout,
-                    workout_name: e.target.value,
-                  })
-                }
-              />
+              <div className="title">
+                Workout Name:
+                <input
+                  type="text"
+                  defaultValue={workout.workout_name}
+                  onChange={(e) =>
+                    setEditingWorkout({
+                      ...editingWorkout,
+                      workout_name: e.target.value,
+                    })
+                  }
+                />
+              </div>
             ) : (
-              workout.workout_name
+              <div className="title">Workout Name: {workout.workout_name}</div>
             )}
           </div>
           <div className="workout-description">
             {isEditing && editingWorkout.workout_id === workout.workout_id ? (
-              <input
-                type="text"
-                defaultValue={workout.description}
-                onChange={(e) =>
-                  setEditingWorkout({
-                    ...editingWorkout,
-                    description: e.target.value,
-                  })
-                }
-              />
+              <div className="title">
+                Description:
+                <input
+                  type="text"
+                  defaultValue={workout.description}
+                  onChange={(e) =>
+                    setEditingWorkout({
+                      ...editingWorkout,
+                      description: e.target.value,
+                    })
+                  }
+                />
+              </div>
             ) : (
-              workout.description
+              <div className="title">Description: {workout.description}</div>
             )}
           </div>
           <div className="workout-exercises">
@@ -213,7 +226,8 @@ export default function MyWorkoutCards() {
                 <div className="exercise-name">
                   {isEditing &&
                   editingWorkout.workout_id === workout.workout_id ? (
-                    <label htmlFor="exercise-names">
+                    <label htmlFor="exercise-names" className="title">
+                      Current Exercises:
                       <select
                         name="exercise-names"
                         id="exercise-names"
@@ -245,22 +259,23 @@ export default function MyWorkoutCards() {
                       </button> */}
                     </label>
                   ) : (
-                    <div>{exercise.exercise_name}</div>
+                    <div className="title">
+                      Exercise Name: {exercise.exercise_name}
+                    </div>
                   )}
                 </div>
-                <div className="muscles-worked">{exercise.muscles_worked}</div>
+                <div className="title">
+                  Muscles Worked: {exercise.muscles_worked}
+                </div>
               </div>
             ))}
           </div>
           <div className="button-container">
             <button onClick={() => editWorkout(workout)}>edit</button>
-
-            {isEditing && editingWorkout.workout_id === workout.workout_id && (
-              <button onClick={deleteWorkout}>delete workout</button>
-            )}
           </div>
           {isEditing && editingWorkout.workout_id === workout.workout_id && (
             <div className="edit-modal">
+              <div className="title">Add Exercise:</div>
               <select
                 onChange={(e) => {
                   // console.log("exercise_name target:", e.target.value);
@@ -283,7 +298,10 @@ export default function MyWorkoutCards() {
                   </option>
                 ))}
               </select>
-              {/* <button onClick={addExercise}>add exercise</button> */}
+              {isEditing &&
+                editingWorkout.workout_id === workout.workout_id && (
+                  <button onClick={deleteWorkout}>delete workout</button>
+                )}
               <button
                 onClick={() => {
                   saveEditedWorkout();

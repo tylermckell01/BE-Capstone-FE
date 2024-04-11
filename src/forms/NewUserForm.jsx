@@ -128,6 +128,10 @@ export default function NewUserForm() {
   };
 
   const editUserData = async (user) => {
+    if (!editedUserData) {
+      console.error("edited exercise name is empty");
+      return;
+    }
     let authToken = Cookies.get("auth_token");
 
     const response = await fetch(`http://127.0.0.1:8086/user/${user.user_id}`, {
@@ -185,70 +189,82 @@ export default function NewUserForm() {
       return (
         <div className="user-wrapper" key={idx}>
           {isEditing ? (
-            <input
-              id="editing-first-name"
-              name="editing-first_name"
-              defaultValue={user.first_name}
-              type="text"
-              className="editing-user-name"
-              onChange={(e) =>
-                setEditedUserData({
-                  ...editedUserData,
-                  first_name: e.target.value,
-                })
-              }
-            />
+            <div>
+              First Name:
+              <input
+                id="editing-first-name"
+                name="editing-first_name"
+                defaultValue={user.first_name}
+                type="text"
+                className="editing-user-name"
+                onChange={(e) =>
+                  setEditedUserData({
+                    ...editedUserData,
+                    first_name: e.target.value,
+                  })
+                }
+              />
+            </div>
           ) : (
-            <div className="first-name">First name: {user.first_name}</div>
+            <div className="first-name">First Name: {user.first_name}</div>
           )}
           {isEditing ? (
-            <input
-              id="editing-last-name"
-              name="editing-last_name"
-              defaultValue={user.last_name}
-              type="text"
-              className="editing-user-name"
-              onChange={(e) =>
-                setEditedUserData({
-                  ...editedUserData,
-                  last_name: e.target.value,
-                })
-              }
-            />
+            <div>
+              Last Name:
+              <input
+                id="editing-last-name"
+                name="editing-last_name"
+                defaultValue={user.last_name}
+                type="text"
+                className="editing-user-name"
+                onChange={(e) =>
+                  setEditedUserData({
+                    ...editedUserData,
+                    last_name: e.target.value,
+                  })
+                }
+              />
+            </div>
           ) : (
             <div className="last-name">Last name: {user.last_name}</div>
           )}
           {isEditing ? (
-            <input
-              id="editing-email"
-              name="editing-email"
-              defaultValue={user.email}
-              type="text"
-              className="editing-user-name"
-              onChange={(e) =>
-                setEditedUserData({
-                  ...editedUserData,
-                  email: e.target.value,
-                })
-              }
-            />
+            <div>
+              Email:
+              <input
+                id="editing-email"
+                name="editing-email"
+                defaultValue={user.email}
+                type="text"
+                className="editing-user-name"
+                onChange={(e) =>
+                  setEditedUserData({
+                    ...editedUserData,
+                    email: e.target.value,
+                  })
+                }
+              />
+            </div>
           ) : (
             <div className="email">Email: {user.email}</div>
           )}
           {isEditing ? (
-            <input
-              id="editing-role"
-              name="editing-role"
-              defaultValue={user.role}
-              type="text"
-              className="editing-user-name"
-              onChange={(e) =>
-                setEditedUserData({
-                  ...editedUserData,
-                  role: e.target.value,
-                })
-              }
-            />
+            <div>
+              Role
+              <input
+                id="editing-role"
+                name="editing-role"
+                defaultValue={user.role}
+                type="text"
+                className="editing-user-name"
+                onChange={(e) =>
+                  setEditedUserData({
+                    ...editedUserData,
+                    role: e.target.value,
+                  })
+                }
+              />
+            </div>
           ) : (
             <div className="role">Role: {user.role}</div>
           )}

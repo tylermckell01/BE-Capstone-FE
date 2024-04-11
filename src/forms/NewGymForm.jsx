@@ -59,6 +59,10 @@ export default function NewGymForm() {
   };
 
   const editGymName = async (gym) => {
+    if (!editedGymName) {
+      console.error("edited exercise name is empty");
+      return;
+    }
     let authToken = Cookies.get("auth_token");
 
     const response = await fetch(`http://127.0.0.1:8086/gym/${gym.gym_id}`, {
@@ -135,14 +139,17 @@ export default function NewGymForm() {
       return (
         <div className="gym-wrapper" key={idx}>
           {isEditing ? (
-            <input
-              id="editing-gym-name"
-              name="editing-gym_name"
-              defaultValue={gym.gym_name}
-              type="text"
-              className="editing-gym-name"
-              onChange={handleFieldUpdate}
-            />
+            <div>
+              Gym Name:
+              <input
+                id="editing-gym-name"
+                name="editing-gym_name"
+                defaultValue={gym.gym_name}
+                type="text"
+                className="editing-gym-name"
+                onChange={handleFieldUpdate}
+              />
+            </div>
           ) : (
             <div className="gym-name">Gym Name: {gym.gym_name}</div>
           )}
