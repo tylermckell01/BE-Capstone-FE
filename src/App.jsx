@@ -6,14 +6,24 @@ import AuthHeader from "./navigation/AuthHeader";
 import Footer from "./navigation/Footer";
 import DefaultContainer from "./routing/DefaultContainer";
 import LandingPage from "./pages/LandingPage";
-import { useAuthInfo } from "./context/AuthContext";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
+// import { useAuthInfo } from "./context/AuthContext";
 
 function App() {
-  const { isLoggedIn } = useAuthInfo();
+  // const { isLoggedIn } = useAuthInfo();
+  // const [authToken, setAuthToken] = useState(null);
+  const authToken = Cookies.get("auth_token");
+  console.log(authToken);
+
+  // useEffect(() => {
+  //   const token = Cookies.get("auth_token");
+  //   setAuthToken(token);
+  // }, []);
 
   return (
     <div className="App">
-      {isLoggedIn ? <AuthHeader /> : <Header />}
+      {authToken ? <AuthHeader /> : <Header />}
 
       <Switch>
         <Route component={DefaultContainer} />

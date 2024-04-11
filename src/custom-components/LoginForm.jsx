@@ -32,9 +32,10 @@ export default function LoginForm() {
     console.log("res: ", response);
 
     if (response) {
-      setIsLoggedIn(true);
+      // setIsLoggedIn(true);
       console.log("authentication successful");
       Cookies.set("auth_token", response.auth_info.auth_token);
+      // console.log(response.auth_info.auth_token);
       return response;
     } else {
       console.error("authentication failed");
@@ -46,7 +47,7 @@ export default function LoginForm() {
       login form
       <form onSubmit={handleSubmit}>
         <div className="email-wrapper">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email: </label>
           <input
             id="email"
             name="email"
@@ -57,7 +58,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="password-wrapper">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password: </label>
           <input
             id="password"
             name="password"

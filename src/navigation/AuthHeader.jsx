@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { useAuthInfo } from "../context/AuthContext";
+// import { useAuthInfo } from "../context/AuthContext";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Cookies from "js-cookie";
 
 export default function AuthHeader() {
   const history = useHistory();
-  const { logout, isLoggedIn } = useAuthInfo();
+  // const authToken = Cookies.get("auth_token");
+  // const { logout, isLoggedIn } = useAuthInfo();
 
   const handleLogout = () => {
-    logout();
+    // logout();
+    Cookies.remove("auth_token");
     history.push("/");
   };
 
@@ -18,13 +21,11 @@ export default function AuthHeader() {
           Fitness Tracker
         </NavLink>
 
-        {isLoggedIn ? (
-          <div />
-        ) : (
+        {/* {!authToken && (
           <NavLink to="/login" className="header-link">
             Login
           </NavLink>
-        )}
+        )} */}
 
         <NavLink to="/my-workouts" className="header-link">
           my workouts
