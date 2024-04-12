@@ -168,7 +168,9 @@ export default function NewGymForm() {
           ) : (
             <button onClick={() => editGym(gym)}>Edit</button>
           )}
-          <button onClick={() => deleteGym(gym.gym_id)}>delete</button>
+          {isEditing && editingGym.gym_id === gym.gym_id && (
+            <button onClick={() => deleteGym(gym.gym_id)}>delete</button>
+          )}
         </div>
       );
     });

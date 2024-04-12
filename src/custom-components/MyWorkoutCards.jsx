@@ -52,9 +52,9 @@ export default function MyWorkoutCards() {
 
     let authToken = Cookies.get("auth_token");
 
-    const { workout_name, description } = editingWorkout;
+    const { workout_name, description, length } = editingWorkout;
 
-    const updatedWorkoutInfo = { workout_name, description };
+    const updatedWorkoutInfo = { workout_name, description, length };
 
     const response = await fetch(
       `http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`,
@@ -222,6 +222,25 @@ export default function MyWorkoutCards() {
               </div>
             ) : (
               <div className="title">Description: {workout.description}</div>
+            )}
+          </div>
+          <div className="workout-length">
+            {isEditing && editingWorkout.workout_id === workout.workout_id ? (
+              <div className="title">
+                Length (hrs):
+                <input
+                  type="text"
+                  defaultValue={workout.length}
+                  onChange={(e) =>
+                    setEditingWorkout({
+                      ...editingWorkout,
+                      length: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            ) : (
+              <div className="title">Length (hrs): {workout.length}</div>
             )}
           </div>
           <div className="workout-exercises">

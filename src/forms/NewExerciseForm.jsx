@@ -187,9 +187,12 @@ export default function NewExerciseForm() {
           ) : (
             <button onClick={() => editExercise(exercise)}>Edit</button>
           )}
-          <button onClick={() => deleteExercise(exercise.exercise_id)}>
-            delete
-          </button>
+          {isEditing &&
+            editingExercise.exercise_id === exercise.exercise_id && (
+              <button onClick={() => deleteExercise(exercise.exercise_id)}>
+                delete
+              </button>
+            )}
         </div>
       );
     });

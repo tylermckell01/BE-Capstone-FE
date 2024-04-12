@@ -283,7 +283,9 @@ export default function NewUserForm() {
           ) : (
             <button onClick={() => editUser(user)}>Edit</button>
           )}
-          <button onClick={() => deleteUser(user)}>delete</button>
+          {isEditing && editingUser.user_id === user.user_id && (
+            <button onClick={() => deleteUser(user)}>delete</button>
+          )}
         </div>
       );
     });
