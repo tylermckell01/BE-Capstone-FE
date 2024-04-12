@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-// import { select } from "neo-async";
 
 export default function MyWorkoutCards() {
   const [yourWorkoutData, setYourWorkoutData] = useState([]);
@@ -13,10 +12,6 @@ export default function MyWorkoutCards() {
     fetchWorkoutData();
     fetchExerciseData();
   }, []);
-
-  // useEffect(() => {
-  //   console.log("changed", editingWorkout);
-  // }, [editingWorkout]);
 
   const fetchWorkoutData = async () => {
     let authToken = Cookies.get("auth_token");
@@ -157,22 +152,31 @@ export default function MyWorkoutCards() {
     setIsEditing(true);
   };
 
-  // const deleteExercise = async (exerciseId) => {
-  //   let authToken = Cookies.get("auth_token");
+  const deleteExercise = async (exercise) => {
+    let authToken = Cookies.get("auth_token");
 
-  //   const response = await fetch(
-  //     `http://127.0.0.1:8086/workout/${editingWorkout.workout_id}`,
-  //     {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         auth: authToken,
-  //       },
-  //       body: JSON.stringify(editingWorkout.exercises.exerciseId),
-  //     }
-  //   );
+    const response = await fetch(`http://127.0.0.1:8086/workout/exercise`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        auth: authToken,
+      },
+      body: JSON.stringify({
+        exercise_id: exercise.exercise_id,
+        workout_id: editingWorkout.workout_id,
+      }),
+    });
 
-  // };
+    if (response) {
+      // await fetchExerciseData();
+      await fetchWorkoutData();
+      // setEditingWorkout(null);
+      // console.log("deleted workout");
+      return response;
+    } else {
+      console.error("DELETE workout/exercise xref failed");
+    }
+  };
 
   const renderWorkoutdata = () => {
     if (yourWorkoutData.length === 0) {
@@ -226,38 +230,12 @@ export default function MyWorkoutCards() {
                 <div className="exercise-name">
                   {isEditing &&
                   editingWorkout.workout_id === workout.workout_id ? (
-                    <label htmlFor="exercise-names" className="title">
-                      Current Exercises:
-                      <select
-                        name="exercise-names"
-                        id="exercise-names"
-                        defaultValue={exercise.exercise_name}
-                        onChange={(e) => {
-                          // console.log(
-                          //   "editingWorkout.exercises:",
-                          //   editingWorkout.exercises
-                          // );
-                          setEditingWorkout((prev) => ({
-                            ...editingWorkout,
-                            exercises: [...prev.exercises, e.target.value],
-                          }));
-                        }}
-                      >
-                        {yourExerciseData.map((exercise) => (
-                          <option
-                            key={exercise.exercise_id}
-                            value={exercise.exercise_name}
-                          >
-                            {exercise.exercise_name}
-                          </option>
-                        ))}
-                      </select>
-                      {/* <button
-                        onClick={() => deleteExercise(exercise.exercise_id)}
-                      >
-                        -
-                      </button> */}
-                    </label>
+                    <div>
+                      Current Exercises: {exercise.exercise_name}
+                      <button onClick={() => deleteExercise(exercise)}>
+                        delete
+                      </button>
+                    </div>
                   ) : (
                     <div className="title">
                       Exercise Name: {exercise.exercise_name}
