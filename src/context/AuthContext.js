@@ -8,7 +8,6 @@ export const useAuthInfo = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [getAuthToken, setGetAuthToken] = useState("");
 
   const login = () => {
     setIsLoggedIn(true);

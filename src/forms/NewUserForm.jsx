@@ -5,6 +5,7 @@ export default function NewUserForm() {
   const [userData, setUserData] = useState([]);
   const [editedUserData, setEditedUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -176,8 +177,9 @@ export default function NewUserForm() {
     }
   };
 
-  const editUser = () => {
+  const editUser = (user) => {
     setIsEditing(true);
+    setEditingUser(user);
   };
 
   const renderUserData = () => {
@@ -188,7 +190,7 @@ export default function NewUserForm() {
     return userData?.map((user, idx) => {
       return (
         <div className="user-wrapper" key={idx}>
-          {isEditing ? (
+          {isEditing && editingUser.user_id === user.user_id ? (
             <div>
               First Name:
               <input
@@ -208,7 +210,7 @@ export default function NewUserForm() {
           ) : (
             <div className="first-name">First Name: {user.first_name}</div>
           )}
-          {isEditing ? (
+          {isEditing && editingUser.user_id === user.user_id ? (
             <div>
               Last Name:
               <input
@@ -228,7 +230,7 @@ export default function NewUserForm() {
           ) : (
             <div className="last-name">Last name: {user.last_name}</div>
           )}
-          {isEditing ? (
+          {isEditing && editingUser.user_id === user.user_id ? (
             <div>
               Email:
               <input
@@ -248,7 +250,7 @@ export default function NewUserForm() {
           ) : (
             <div className="email">Email: {user.email}</div>
           )}
-          {isEditing ? (
+          {isEditing && editingUser.user_id === user.user_id ? (
             <div>
               Role
               <input
@@ -269,7 +271,7 @@ export default function NewUserForm() {
             <div className="role">Role: {user.role}</div>
           )}
 
-          {isEditing ? (
+          {isEditing && editingUser.user_id === user.user_id ? (
             <button
               onClick={() => {
                 editUserData(user);
@@ -279,7 +281,7 @@ export default function NewUserForm() {
               Save
             </button>
           ) : (
-            <button onClick={() => editUser()}>Edit</button>
+            <button onClick={() => editUser(user)}>Edit</button>
           )}
           <button onClick={() => deleteUser(user)}>delete</button>
         </div>

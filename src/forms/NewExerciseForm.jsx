@@ -10,6 +10,7 @@ export default function NewExerciseForm() {
   const [exerciseData, setExerciseData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedExerciseName, setEditedExerciseName] = useState(null);
+  const [editingExercise, setEditingExercise] = useState(null);
 
   useEffect(() => {
     fetchExerciseData();
@@ -58,8 +59,9 @@ export default function NewExerciseForm() {
     }
   };
 
-  const editExercise = () => {
+  const editExercise = (exercise) => {
     setIsEditing(true);
+    setEditingExercise(exercise);
   };
 
   const editExerciseName = async (exercise) => {
@@ -156,7 +158,7 @@ export default function NewExerciseForm() {
     return exerciseData?.map((exercise, idx) => {
       return (
         <div className="exercise-wrapper" key={idx}>
-          {isEditing ? (
+          {isEditing && editingExercise.exercise_id === exercise.exercise_id ? (
             <input
               id="editing-exercise-name"
               name="editing-exercise_name"
@@ -173,7 +175,7 @@ export default function NewExerciseForm() {
           <div className="muscles-worked">
             Muscles Worked: {exercise.muscles_worked}
           </div>
-          {isEditing ? (
+          {isEditing && editingExercise.exercise_id === exercise.exercise_id ? (
             <button
               onClick={() => {
                 editExerciseName(exercise);
@@ -183,7 +185,7 @@ export default function NewExerciseForm() {
               Save
             </button>
           ) : (
-            <button onClick={() => editExercise()}>Edit</button>
+            <button onClick={() => editExercise(exercise)}>Edit</button>
           )}
           <button onClick={() => deleteExercise(exercise.exercise_id)}>
             delete

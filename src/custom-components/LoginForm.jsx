@@ -3,7 +3,7 @@ import { useAuthInfo } from "../context/AuthContext";
 import Cookies from "js-cookie";
 
 export default function LoginForm() {
-  const { isLoggedIn, setIsLoggedIn, setGetAuthToken } = useAuthInfo();
+  const { login } = useAuthInfo();
 
   const [loginCreds, setLoginCreds] = useState({
     email: "",
@@ -32,10 +32,9 @@ export default function LoginForm() {
     console.log("res: ", response);
 
     if (response) {
-      // setIsLoggedIn(true);
+      login();
       console.log("authentication successful");
       Cookies.set("auth_token", response.auth_info.auth_token);
-      // console.log(response.auth_info.auth_token);
       return response;
     } else {
       console.error("authentication failed");

@@ -13,7 +13,7 @@ export default function DefaultContainer() {
     <div className="app">
       <Route exact path="/login" component={LoginPage} />
 
-      <Route path="/landing-page" component={LandingPage} />
+      <Route exact path="/" component={LandingPage} />
 
       <Route path="/my-workouts" component={MyWorkouts} />
 

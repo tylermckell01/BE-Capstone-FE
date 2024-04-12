@@ -9,6 +9,7 @@ export default function NewGymForm() {
   const [gymData, setGymData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedGymName, setEditedGymName] = useState(null);
+  const [editingGym, setEditingGym] = useState(null);
 
   useEffect(() => {
     fetchGymData();
@@ -54,8 +55,9 @@ export default function NewGymForm() {
     }
   };
 
-  const editGym = () => {
+  const editGym = (gym) => {
     setIsEditing(true);
+    setEditingGym(gym);
   };
 
   const editGymName = async (gym) => {
@@ -138,7 +140,7 @@ export default function NewGymForm() {
     return gymData?.map((gym, idx) => {
       return (
         <div className="gym-wrapper" key={idx}>
-          {isEditing ? (
+          {isEditing && editingGym.gym_id === gym.gym_id ? (
             <div>
               Gym Name:
               <input
@@ -154,7 +156,7 @@ export default function NewGymForm() {
             <div className="gym-name">Gym Name: {gym.gym_name}</div>
           )}
 
-          {isEditing ? (
+          {isEditing && editingGym.gym_id === gym.gym_id ? (
             <button
               onClick={() => {
                 editGymName(gym);
@@ -164,7 +166,7 @@ export default function NewGymForm() {
               Save
             </button>
           ) : (
-            <button onClick={() => editGym()}>Edit</button>
+            <button onClick={() => editGym(gym)}>Edit</button>
           )}
           <button onClick={() => deleteGym(gym.gym_id)}>delete</button>
         </div>

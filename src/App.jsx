@@ -7,28 +7,18 @@ import Footer from "./navigation/Footer";
 import DefaultContainer from "./routing/DefaultContainer";
 import LandingPage from "./pages/LandingPage";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
-// import { useAuthInfo } from "./context/AuthContext";
+import { useAuthInfo } from "./context/AuthContext";
 
 function App() {
-  // const { isLoggedIn } = useAuthInfo();
-  // const [authToken, setAuthToken] = useState(null);
+  const { isLoggedIn } = useAuthInfo();
   const authToken = Cookies.get("auth_token");
   console.log(authToken);
 
-  // useEffect(() => {
-  //   const token = Cookies.get("auth_token");
-  //   setAuthToken(token);
-  // }, []);
-
   return (
     <div className="App">
-      {authToken ? <AuthHeader /> : <Header />}
+      {authToken && isLoggedIn ? <AuthHeader /> : <Header />}
 
-      <Switch>
-        <Route component={DefaultContainer} />
-        <Route exact path="/" component={LandingPage} />
-      </Switch>
+      <Route component={DefaultContainer} />
 
       <Footer />
     </div>
