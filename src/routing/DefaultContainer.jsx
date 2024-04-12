@@ -5,6 +5,7 @@ import NewWorkoutForm from "../forms/NewWorkoutForm";
 import NewGymForm from "../forms/NewGymForm";
 import NewExerciseForm from "../forms/NewExerciseForm";
 import NewUserForm from "../forms/NewUserForm";
+import CreateAccount from "../custom-components/CreateAccount";
 
 import LandingPage from "../pages/LandingPage";
 
@@ -12,6 +13,8 @@ export default function DefaultContainer() {
   return (
     <div className="app">
       <Route exact path="/login" component={LoginPage} />
+
+      <Route exact path="/create-account" component={CreateAccount} />
 
       <Route exact path="/" component={LandingPage} />
 

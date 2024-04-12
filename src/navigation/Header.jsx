@@ -11,6 +11,10 @@ export default function Header() {
         <NavLink to="/login" className="header-link">
           Login
         </NavLink>
+
+        <NavLink to="/create-account" className="header-link">
+          Create Account
+        </NavLink>
       </div>
     </header>
   );
