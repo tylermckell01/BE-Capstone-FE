@@ -7,9 +7,14 @@ export default function NewExerciseForm() {
     muscles_worked: "",
   });
 
+  const [editedExerciseData, setEditedExerciseData] = useState({
+    exercise_name: "",
+    muscles_worked: "",
+  });
+
   const [exerciseData, setExerciseData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedExerciseName, setEditedExerciseName] = useState(null);
+  // const [editedExerciseName, setEditedExerciseName] = useState(null);
   const [editingExercise, setEditingExercise] = useState(null);
 
   useEffect(() => {
@@ -65,7 +70,7 @@ export default function NewExerciseForm() {
   };
 
   const editExerciseName = async (exercise) => {
-    if (!editedExerciseName) {
+    if (!editedExerciseData) {
       console.error("edited exercise name is empty");
       return;
     }
@@ -80,7 +85,7 @@ export default function NewExerciseForm() {
           "Content-Type": "application/json",
           auth: authToken,
         },
-        body: JSON.stringify({ exercise_name: editedExerciseName }),
+        body: JSON.stringify(editedExerciseData),
       }
     );
 
@@ -111,7 +116,10 @@ export default function NewExerciseForm() {
     const { name, value } = e.target;
 
     if (isEditing) {
-      setEditedExerciseName(value);
+      setEditedExerciseData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     } else {
       setFormData((previous) => ({ ...previous, [name]: value }));
     }
@@ -159,22 +167,51 @@ export default function NewExerciseForm() {
       return (
         <div className="exercise-wrapper" key={idx}>
           {isEditing && editingExercise.exercise_id === exercise.exercise_id ? (
-            <input
-              id="editing-exercise-name"
-              name="editing-exercise_name"
-              defaultValue={exercise.exercise_name}
-              type="text"
-              className="editing-exercise-name"
-              onChange={handleFieldUpdate}
-            />
+            <div className="exercise-name">
+              Exercise Name:
+              <input
+                id="editing-exercise-name"
+                name="editing-exercise_name"
+                defaultValue={exercise.exercise_name}
+                type="text"
+                className="editing-exercise-name"
+                onChange={(e) =>
+                  setEditedExerciseData((prev) => ({
+                    ...prev,
+                    exercise_name: e.target.value,
+                  }))
+                }
+              />
+            </div>
           ) : (
             <div className="exercise-name">
               Exercise Name: {exercise.exercise_name}
             </div>
           )}
-          <div className="muscles-worked">
-            Muscles Worked: {exercise.muscles_worked}
-          </div>
+
+          {isEditing && editingExercise.exercise_id === exercise.exercise_id ? (
+            <div className="muscles-worked">
+              Muscles Worked:
+              <input
+                id="editing-muscles-worked"
+                name="editing-muscles_worked"
+                defaultValue={exercise.muscles_worked}
+                type="text"
+                className="editing-muscles-worked"
+                onChange={(e) =>
+                  setEditedExerciseData((prev) => ({
+                    ...prev,
+                    muscles_worked: e.target.value,
+                  }))
+                }
+              />
+            </div>
+          ) : (
+            <div className="muscles-worked">
+              Muscles Worked: {exercise.muscles_worked}
+            </div>
+          )}
+
           {isEditing && editingExercise.exercise_id === exercise.exercise_id ? (
             <button
               onClick={() => {

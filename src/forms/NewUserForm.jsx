@@ -274,7 +274,7 @@ export default function NewUserForm() {
 
           {isEditing && editingUser.user_id === user.user_id ? (
             <div>
-              Active status: {editedUserData.active ? "active" : "inactive"}
+              Active status: {user.active ? "active" : "inactive"}
               {user.active === true ? (
                 <button
                   onClick={(e) => {
