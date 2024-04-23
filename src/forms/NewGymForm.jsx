@@ -29,6 +29,9 @@ export default function NewGymForm() {
     });
 
     if (response) {
+      setFormData({
+        gym_name: "",
+      });
       await fetchGymData();
       return response;
     } else {
@@ -119,7 +122,7 @@ export default function NewGymForm() {
             <input
               id="gym-name"
               name="gym_name"
-              defaultValue={formData.gym_name}
+              value={formData.gym_name}
               type="text"
               className="gym-name"
               onChange={handleFieldUpdate}

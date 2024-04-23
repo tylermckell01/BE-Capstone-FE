@@ -32,6 +32,14 @@ export default function NewUserForm() {
     });
 
     if (response.ok) {
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        role: "",
+      });
+
       await fetchUserData();
       console.log("create new user successful");
       console.log(response);

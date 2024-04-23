@@ -14,7 +14,6 @@ export default function NewExerciseForm() {
 
   const [exerciseData, setExerciseData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  // const [editedExerciseName, setEditedExerciseName] = useState(null);
   const [editingExercise, setEditingExercise] = useState(null);
 
   useEffect(() => {
@@ -35,6 +34,7 @@ export default function NewExerciseForm() {
     });
 
     if (response) {
+      setFormData({ exercise_name: "", muscles_worked: "" });
       await fetchExerciseData();
       return response;
     } else {

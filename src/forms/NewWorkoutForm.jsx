@@ -7,7 +7,6 @@ export default function NewWorkoutForm() {
     workout_name: "",
     description: "",
     length: 0,
-    // gym_id: "",
   });
 
   const handleFieldUpdate = (e) => {
@@ -30,6 +29,7 @@ export default function NewWorkoutForm() {
     });
 
     if (response) {
+      setFormData({ workout_name: "", description: "", length: 0 });
       console.log("create new workout successful");
       console.log(response);
       return response;
@@ -63,7 +63,7 @@ export default function NewWorkoutForm() {
             onChange={handleFieldUpdate}
           />
 
-          <label htmlFor="workout-length">workout length</label>
+          <label htmlFor="workout-length">workout length (hrs)</label>
           <input
             id="workout-length"
             name="length"
