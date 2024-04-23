@@ -49,7 +49,7 @@ export default function NewGymForm() {
 
     if (response) {
       await fetchGymData();
-      return response;
+      // return response;
     } else {
       console.error("DELETE Gym failed");
     }
@@ -119,7 +119,7 @@ export default function NewGymForm() {
             <input
               id="gym-name"
               name="gym_name"
-              value={formData.gym_name}
+              defaultValue={formData.gym_name}
               type="text"
               className="gym-name"
               onChange={handleFieldUpdate}

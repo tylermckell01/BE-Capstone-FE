@@ -190,7 +190,7 @@ export default function NewUserForm() {
 
     return userData?.map((user, idx) => {
       return (
-        <div className="user-wrapper" key={idx}>
+        <div className="user-wrapper " key={idx}>
           {isEditing && editingUser.user_id === user.user_id ? (
             <div>
               First Name:
@@ -274,7 +274,7 @@ export default function NewUserForm() {
 
           {isEditing && editingUser.user_id === user.user_id ? (
             <div>
-              Active status: {user.active ? "active" : "inactive"}
+              Active status: {editedUserData.active ? "active" : "inactive"}
               {user.active === true ? (
                 <button
                   onClick={(e) => {
