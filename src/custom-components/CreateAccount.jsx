@@ -9,6 +9,8 @@ export default function CreateAccount() {
     role: "",
   });
 
+  const [userCreated, setUserCreated] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://127.0.0.1:8086/user", {
@@ -22,6 +24,17 @@ export default function CreateAccount() {
     if (response.ok) {
       console.log("create new user successful");
       console.log(response);
+      setUserCreated(true);
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        role: "",
+      });
+      setTimeout(() => {
+        setUserCreated(false);
+      }, 2500);
       return response;
     } else {
       console.error("create new user failed");
@@ -90,6 +103,9 @@ export default function CreateAccount() {
               onChange={handleFieldUpdate}
             />
 
+            {userCreated && (
+              <div className="toast-notification">user created succesfully</div>
+            )}
             <button type="submit">Add this user!</button>
           </div>
         </form>
