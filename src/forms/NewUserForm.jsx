@@ -147,6 +147,7 @@ export default function NewUserForm() {
     if (response) {
       await fetchUserData();
       setIsEditing(false);
+      console.log(user.active);
       return response;
     } else {
       console.error("Update User failed");
@@ -269,6 +270,39 @@ export default function NewUserForm() {
             </div>
           ) : (
             <div className="role">Role: {user.role}</div>
+          )}
+
+          {isEditing && editingUser.user_id === user.user_id ? (
+            <div>
+              Active status: {user.active ? "active" : "inactive"}
+              {user.active === true ? (
+                <button
+                  onClick={(e) => {
+                    setEditedUserData({
+                      ...editedUserData,
+                      active: false,
+                    });
+                  }}
+                >
+                  deactivate
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    setEditedUserData({
+                      ...editedUserData,
+                      active: true,
+                    });
+                  }}
+                >
+                  activate
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="active-status">
+              Active Status: {user.active ? "active" : "inactive"}
+            </div>
           )}
 
           {isEditing && editingUser.user_id === user.user_id ? (
