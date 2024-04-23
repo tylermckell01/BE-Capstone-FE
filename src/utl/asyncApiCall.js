@@ -13,8 +13,6 @@ export default async function asyncApiCall(
 
   if (response) {
     const responseData = await response.json();
-    console.log("async api call successful");
-    console.log(response);
     return responseData;
   } else {
     console.error("async api call failed");

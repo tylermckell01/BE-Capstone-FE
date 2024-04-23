@@ -41,8 +41,6 @@ export default function NewUserForm() {
       });
 
       await fetchUserData();
-      console.log("create new user successful");
-      console.log(response);
       return response;
     } else {
       console.error("create new user failed");
@@ -155,7 +153,6 @@ export default function NewUserForm() {
     if (response) {
       await fetchUserData();
       setIsEditing(false);
-      console.log(user.active);
       return response;
     } else {
       console.error("Update User failed");
@@ -175,8 +172,6 @@ export default function NewUserForm() {
         },
       }
     );
-
-    console.log("deleting user:", user);
 
     if (response.ok) {
       await fetchUserData();

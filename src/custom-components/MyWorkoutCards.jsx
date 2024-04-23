@@ -71,10 +71,8 @@ export default function MyWorkoutCards() {
     if (response) {
       await fetchExerciseData();
       await fetchWorkoutData();
-      // console.log("editingWorkout:", editingWorkout);
-      // console.log("after pressing save button piece of state", yourWorkoutData);
+
       setIsEditing(false);
-      // setEditingWorkout(null);
 
       return response;
     } else {
@@ -108,10 +106,6 @@ export default function MyWorkoutCards() {
       )
     );
 
-    // console.log("res: ", response);
-    // console.log("workout_id", workoutId);
-    // console.log("exercise_id", exerciseId);
-
     if (response) {
       await fetchWorkoutData();
       await fetchExerciseData();
@@ -136,10 +130,7 @@ export default function MyWorkoutCards() {
     );
 
     if (response) {
-      // await fetchExerciseData();
       await fetchWorkoutData();
-      // setEditingWorkout(null);
-      // console.log("deleted workout");
       return response;
     } else {
       console.error("DELETE workout failed");
@@ -147,7 +138,6 @@ export default function MyWorkoutCards() {
   };
 
   const editWorkout = (workout) => {
-    // console.log("edit workout", workout);
     setEditingWorkout(workout);
     setIsEditing(true);
   };
@@ -168,10 +158,7 @@ export default function MyWorkoutCards() {
     });
 
     if (response) {
-      // await fetchExerciseData();
       await fetchWorkoutData();
-      // setEditingWorkout(null);
-      // console.log("deleted workout");
       return response;
     } else {
       console.error("DELETE workout/exercise xref failed");
@@ -275,7 +262,6 @@ export default function MyWorkoutCards() {
               <div className="title">Add Exercise:</div>
               <select
                 onChange={(e) => {
-                  // console.log("exercise_name target:", e.target.value);
                   setEditingWorkout((prev) => ({
                     ...editingWorkout,
                     exercises: [...prev.exercises, e.target.value],

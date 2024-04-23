@@ -1,5 +1,4 @@
 import { useState } from "react";
-import asyncApiCall from "../utl/asyncApiCall";
 import Cookies from "js-cookie";
 
 export default function NewWorkoutForm() {
@@ -30,8 +29,6 @@ export default function NewWorkoutForm() {
 
     if (response) {
       setFormData({ workout_name: "", description: "", length: 0 });
-      console.log("create new workout successful");
-      console.log(response);
       return response;
     } else {
       console.error("create new workout failed");

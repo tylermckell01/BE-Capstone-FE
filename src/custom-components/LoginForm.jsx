@@ -29,11 +29,8 @@ export default function LoginForm() {
       .then((res) => res.json())
       .then((data) => data);
 
-    console.log("res: ", response);
-
     if (response) {
       login();
-      console.log("authentication successful");
       Cookies.set("auth_token", response.auth_info.auth_token);
       return response;
     } else {
