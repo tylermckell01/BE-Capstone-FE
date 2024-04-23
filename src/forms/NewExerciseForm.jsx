@@ -14,7 +14,6 @@ export default function NewExerciseForm() {
 
   const [exerciseData, setExerciseData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  // const [editedExerciseName, setEditedExerciseName] = useState(null);
   const [editingExercise, setEditingExercise] = useState(null);
 
   useEffect(() => {
@@ -114,15 +113,7 @@ export default function NewExerciseForm() {
 
   const handleFieldUpdate = (e) => {
     const { name, value } = e.target;
-
-    if (isEditing) {
-      setEditedExerciseData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    } else {
-      setFormData((previous) => ({ ...previous, [name]: value }));
-    }
+    setFormData((previous) => ({ ...previous, [name]: value }));
   };
 
   const addExerciseForm = () => {
