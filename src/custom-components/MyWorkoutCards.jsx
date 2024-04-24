@@ -45,7 +45,6 @@ export default function MyWorkoutCards() {
       });
   };
 
-  // clicking save button in editmodal
   const saveEditedWorkout = async () => {
     if (!editingWorkout) {
       console.error("edited exercise name is empty");
@@ -82,7 +81,6 @@ export default function MyWorkoutCards() {
     }
   };
 
-  // onchange for selecting a workout in the edit workout modal
   const addExerciseToWorkout = async (workoutId, exerciseId) => {
     let authToken = Cookies.get("auth_token");
 

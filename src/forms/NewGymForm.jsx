@@ -52,7 +52,6 @@ export default function NewGymForm() {
 
     if (response) {
       await fetchGymData();
-      // return response;
     } else {
       console.error("DELETE Gym failed");
     }
