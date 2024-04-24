@@ -6,6 +6,7 @@ export default function NewWorkoutForm() {
     workout_name: "",
     description: "",
     length: 0,
+    user_id: Cookies.get("user_id"),
   });
 
   const handleFieldUpdate = (e) => {

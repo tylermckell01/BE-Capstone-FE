@@ -22,8 +22,6 @@ export default function CreateAccount() {
     });
 
     if (response.ok) {
-      console.log("create new user successful");
-      console.log(response);
       setUserCreated(true);
       setFormData({
         first_name: "",

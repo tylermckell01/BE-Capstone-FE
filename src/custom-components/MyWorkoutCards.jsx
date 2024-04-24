@@ -15,7 +15,9 @@ export default function MyWorkoutCards() {
 
   const fetchWorkoutData = async () => {
     let authToken = Cookies.get("auth_token");
-    await fetch("http://127.0.0.1:8086/workouts", {
+    let userId = Cookies.get("user_id");
+
+    await fetch(`http://127.0.0.1:8086/workouts/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
