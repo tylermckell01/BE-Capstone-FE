@@ -47,7 +47,6 @@ export default function MyWorkoutCards() {
 
   const saveEditedWorkout = async () => {
     if (!editingWorkout) {
-      console.error("edited exercise name is empty");
       return;
     }
 
@@ -76,8 +75,6 @@ export default function MyWorkoutCards() {
       setIsEditing(false);
 
       return response;
-    } else {
-      console.error("UPDATE workout failed");
     }
   };
 
@@ -110,8 +107,6 @@ export default function MyWorkoutCards() {
       await fetchWorkoutData();
       await fetchExerciseData();
       return response;
-    } else {
-      console.error("workout/exercise xref failed");
     }
   };
 
@@ -132,8 +127,6 @@ export default function MyWorkoutCards() {
     if (response) {
       await fetchWorkoutData();
       return response;
-    } else {
-      console.error("DELETE workout failed");
     }
   };
 
@@ -160,8 +153,6 @@ export default function MyWorkoutCards() {
     if (response) {
       await fetchWorkoutData();
       return response;
-    } else {
-      console.error("DELETE workout/exercise xref failed");
     }
   };
 

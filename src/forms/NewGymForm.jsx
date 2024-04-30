@@ -34,8 +34,6 @@ export default function NewGymForm() {
       });
       await fetchGymData();
       return response;
-    } else {
-      console.error("create new gym failed");
     }
   };
 
@@ -52,8 +50,6 @@ export default function NewGymForm() {
 
     if (response) {
       await fetchGymData();
-    } else {
-      console.error("DELETE Gym failed");
     }
   };
 
@@ -64,7 +60,6 @@ export default function NewGymForm() {
 
   const editGymName = async (gym) => {
     if (!editedGymName) {
-      console.error("edited exercise name is empty");
       return;
     }
     let authToken = Cookies.get("auth_token");
@@ -81,8 +76,6 @@ export default function NewGymForm() {
     if (response) {
       await fetchGymData();
       return response;
-    } else {
-      console.error("Update gym name failed");
     }
   };
 

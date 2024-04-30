@@ -42,8 +42,6 @@ export default function NewUserForm() {
 
       await fetchUserData();
       return response;
-    } else {
-      console.error("create new user failed");
     }
   };
 
@@ -136,7 +134,6 @@ export default function NewUserForm() {
 
   const editUserData = async (user) => {
     if (!editedUserData) {
-      console.error("edited exercise name is empty");
       return;
     }
     let authToken = Cookies.get("auth_token");
@@ -154,8 +151,6 @@ export default function NewUserForm() {
       await fetchUserData();
       setIsEditing(false);
       return response;
-    } else {
-      console.error("Update User failed");
     }
   };
 
@@ -176,8 +171,6 @@ export default function NewUserForm() {
     if (response.ok) {
       await fetchUserData();
       return response;
-    } else {
-      console.error("DELETE User failed");
     }
   };
 

@@ -34,8 +34,6 @@ export default function LoginForm() {
       Cookies.set("auth_token", response.auth_info.auth_token);
       Cookies.set("user_id", response.auth_info.user.user_id);
       return response;
-    } else {
-      console.error("authentication failed");
     }
   };
 

@@ -31,8 +31,6 @@ export default function NewWorkoutForm() {
     if (response) {
       setFormData({ workout_name: "", description: "", length: 0 });
       return response;
-    } else {
-      console.error("create new workout failed");
     }
   };
 

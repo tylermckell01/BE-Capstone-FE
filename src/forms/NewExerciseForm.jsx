@@ -37,8 +37,6 @@ export default function NewExerciseForm() {
       setFormData({ exercise_name: "", muscles_worked: "" });
       await fetchExerciseData();
       return response;
-    } else {
-      console.error("create new exercise failed");
     }
   };
 
@@ -59,8 +57,6 @@ export default function NewExerciseForm() {
     if (response) {
       await fetchExerciseData();
       return response;
-    } else {
-      console.error("DELETE Exercise failed");
     }
   };
 
@@ -71,7 +67,6 @@ export default function NewExerciseForm() {
 
   const editExerciseName = async (exercise) => {
     if (!editedExerciseData) {
-      console.error("edited exercise name is empty");
       return;
     }
 
@@ -92,8 +87,6 @@ export default function NewExerciseForm() {
     if (response) {
       await fetchExerciseData();
       return response;
-    } else {
-      console.error("Update Exercise failed");
     }
   };
 

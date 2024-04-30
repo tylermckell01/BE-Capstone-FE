@@ -14,7 +14,5 @@ export default async function asyncApiCall(
   if (response) {
     const responseData = await response.json();
     return responseData;
-  } else {
-    console.error("async api call failed");
   }
 }
