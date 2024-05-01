@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-form-wrapper">
-      Login
+      Enter Your Credentials
       <form onSubmit={handleSubmit}>
         <div className="email-wrapper">
           <label htmlFor="email">Email: </label>
@@ -63,7 +63,7 @@ export default function LoginForm() {
             onChange={handleFieldUpdate}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );

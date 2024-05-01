@@ -266,8 +266,6 @@ export default function MyWorkoutCards() {
                     key={exercise.exercise_id}
                     value={exercise.exercise_id}
                   >
-                    {/* {editWorkout.exercises} */}
-
                     {exercise.exercise_name}
                   </option>
                 ))}
