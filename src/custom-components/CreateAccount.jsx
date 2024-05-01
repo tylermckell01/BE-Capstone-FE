@@ -34,8 +34,6 @@ export default function CreateAccount() {
         setUserCreated(false);
       }, 2500);
       return response;
-    } else {
-      console.error("create new user failed");
     }
   };
 

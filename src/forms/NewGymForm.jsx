@@ -107,7 +107,7 @@ export default function NewGymForm() {
   const addGymForm = () => {
     return (
       <div className="new-gym-form-container">
-        <div className="page-title">new gym form</div>
+        <div className="page-title">Create a Gym Here!</div>
         <form onSubmit={handleSubmit}>
           <div className="new-gym-form">
             <label htmlFor="gym-name">Gym Name </label>

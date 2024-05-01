@@ -1,26 +1,52 @@
-.cards-wrapper {
-  border: solid 1px blue;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 60px;
-  gap: 20px;
+.my-workouts {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  text-align: center;
 
-  .workout-info {
-    display: flex;
-    flex-direction: column;
-    border: solid 1px black;
+  .workout-page-title {
+    background-color: $tab-links;
+    width: 20%;
+    margin: 30px;
+    padding: 20px;
+    font-size: x-large;
+    border-radius: 10px;
+  }
 
-    .workout-name {
-      border: solid 1px green;
-    }
+  .cards-wrapper {
+    text-align: left;
+    // border: solid 1px blue;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 60px;
+    gap: 20px;
 
-    .workout-description {
-      border: solid 1px darkcyan;
-    }
-
-    .button-container {
+    .workout-info {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      border: solid 2px $tab-links;
+      padding: 10px;
+      background-color: gray;
+      border-radius: 10px;
+      width: 90%;
+
+      // .workout-name {
+      //   border: solid 1px green;
+      // }
+
+      // .workout-description {
+      //   border: solid 1px darkcyan;
+      // }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+
+        button {
+          padding: 10px;
+          border-radius: 10px;
+        }
+      }
     }
   }
 }

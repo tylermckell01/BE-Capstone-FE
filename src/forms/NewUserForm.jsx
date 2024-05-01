@@ -72,10 +72,10 @@ export default function NewUserForm() {
   const addUserForm = () => {
     return (
       <div className="new-user-form-container">
-        <div className="page-title">new user form</div>
+        <div className="page-title">Create a User Here!</div>
         <form onSubmit={handleSubmit}>
           <div className="new-user-form">
-            <label htmlFor="new-user-first-name"> first name </label>
+            <label htmlFor="new-user-first-name"> First name </label>
             <input
               id="new-user-first-name"
               name="first_name"
@@ -85,7 +85,7 @@ export default function NewUserForm() {
               onChange={handleFieldUpdate}
             />
 
-            <label htmlFor="new-user-last-name"> last name </label>
+            <label htmlFor="new-user-last-name"> Last name </label>
             <input
               id="new-user-last-name"
               name="last_name"
@@ -95,7 +95,7 @@ export default function NewUserForm() {
               onChange={handleFieldUpdate}
             />
 
-            <label htmlFor="new-user-email"> email </label>
+            <label htmlFor="new-user-email"> Email </label>
             <input
               id="new-user-email"
               name="email"
@@ -105,7 +105,7 @@ export default function NewUserForm() {
               onChange={handleFieldUpdate}
             />
 
-            <label htmlFor="new-user-password"> password </label>
+            <label htmlFor="new-user-password"> Password </label>
             <input
               id="new-user-password"
               name="password"
@@ -115,7 +115,7 @@ export default function NewUserForm() {
               onChange={handleFieldUpdate}
             />
 
-            <label htmlFor="new-user-role"> role </label>
+            <label htmlFor="new-user-role"> Role </label>
             <input
               id="new-user-role"
               name="role"

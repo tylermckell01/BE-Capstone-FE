@@ -21,27 +21,27 @@ export default function AuthHeader() {
         </NavLink>
 
         <NavLink to="/my-workouts" className="header-link">
-          my workouts
+          My Workouts
         </NavLink>
 
         <NavLink to="/add-workout" className="header-link">
-          + workout
+          + Workout
         </NavLink>
 
         <NavLink to="/add-gym" className="header-link">
-          gyms
+          Gyms
         </NavLink>
 
         <NavLink to="/add-exercise" className="header-link">
-          exercises
+          Exercises
         </NavLink>
 
         <NavLink to="/add-user" className="header-link">
-          users
+          Users
         </NavLink>
 
         <button onClick={handleLogout} className="header-link">
-          Log out
+          Log Out
         </button>
       </div>
     </div>

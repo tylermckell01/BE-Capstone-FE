@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-form-wrapper">
-      login form
+      Login
       <form onSubmit={handleSubmit}>
         <div className="email-wrapper">
           <label htmlFor="email">Email: </label>

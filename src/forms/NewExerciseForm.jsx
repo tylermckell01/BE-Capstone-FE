@@ -121,7 +121,7 @@ export default function NewExerciseForm() {
   const addExerciseForm = () => {
     return (
       <div className="new-exercise-form-container">
-        <div className="page-title">new exercise form</div>
+        <div className="page-title">Create an Exercise Here!</div>
         <form onSubmit={handleSubmit}>
           <div className="new-exercise-form">
             <label htmlFor="exercise-name">exercise name </label>

@@ -16,7 +16,7 @@ export default function DefaultContainer() {
 
       <Route exact path="/create-account" component={CreateAccount} />
 
-      <Route exact path="/" component={LandingPage} />
+      <Route path="/landing-page" component={LandingPage} />
 
       <Route path="/my-workouts" component={MyWorkouts} />
 
