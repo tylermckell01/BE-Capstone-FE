@@ -21,11 +21,11 @@ export default function AuthHeader() {
         </NavLink>
 
         <NavLink to="/my-workouts" className="header-link">
-          My Workouts
+          My Clients
         </NavLink>
 
         <NavLink to="/add-workout" className="header-link">
-          + Workout
+          + Client
         </NavLink>
 
         <NavLink to="/add-gym" className="header-link">

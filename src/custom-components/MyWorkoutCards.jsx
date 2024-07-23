@@ -158,7 +158,7 @@ export default function MyWorkoutCards() {
 
   const renderWorkoutdata = () => {
     if (yourWorkoutData.length === 0) {
-      return <div>No workout data available.</div>;
+      return <div>No Client data available.</div>;
     }
 
     return yourWorkoutData?.map((workout, idx) => {
@@ -167,7 +167,7 @@ export default function MyWorkoutCards() {
           <div className="workout-name">
             {isEditing && editingWorkout.workout_id === workout.workout_id ? (
               <div className="title">
-                Workout Name:
+                Name:
                 <input
                   type="text"
                   defaultValue={workout.workout_name}
@@ -180,13 +180,13 @@ export default function MyWorkoutCards() {
                 />
               </div>
             ) : (
-              <div className="title">Workout Name: {workout.workout_name}</div>
+              <div className="title"> Name: {workout.workout_name}</div>
             )}
           </div>
           <div className="workout-description">
             {isEditing && editingWorkout.workout_id === workout.workout_id ? (
               <div className="title">
-                Description:
+                Address:
                 <input
                   type="text"
                   defaultValue={workout.description}
@@ -199,13 +199,13 @@ export default function MyWorkoutCards() {
                 />
               </div>
             ) : (
-              <div className="title">Description: {workout.description}</div>
+              <div className="title">Address: {workout.description}</div>
             )}
           </div>
           <div className="workout-length">
             {isEditing && editingWorkout.workout_id === workout.workout_id ? (
               <div className="title">
-                Length (hrs):
+                Rate (per week):
                 <input
                   type="text"
                   defaultValue={workout.length}
@@ -218,7 +218,7 @@ export default function MyWorkoutCards() {
                 />
               </div>
             ) : (
-              <div className="title">Length (hrs): {workout.length}</div>
+              <div className="title">Rate (per week): ${workout.length}</div>
             )}
           </div>
           <div className="workout-exercises">

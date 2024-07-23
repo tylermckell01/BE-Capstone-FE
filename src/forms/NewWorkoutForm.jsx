@@ -36,10 +36,10 @@ export default function NewWorkoutForm() {
 
   return (
     <div className="new-workout-form-container">
-      <div className="page-title">Create a Workout Here!</div>
+      <div className="page-title">Add all your favorite clients in Here!</div>
       <form onSubmit={handleSubmit}>
         <div className="new-workout-form">
-          <label htmlFor="workout-name">workout name </label>
+          <label htmlFor="workout-name">Name: </label>
           <input
             id="workout-name"
             name="workout_name"
@@ -49,7 +49,7 @@ export default function NewWorkoutForm() {
             onChange={handleFieldUpdate}
           />
 
-          <label htmlFor="workout-description">workout description</label>
+          <label htmlFor="workout-description">Address: </label>
           <input
             id="workout-description"
             name="description"
@@ -59,7 +59,7 @@ export default function NewWorkoutForm() {
             onChange={handleFieldUpdate}
           />
 
-          <label htmlFor="workout-length">workout length (hrs)</label>
+          <label htmlFor="workout-length">Rate (per week)</label>
           <input
             id="workout-length"
             name="length"
@@ -69,7 +69,7 @@ export default function NewWorkoutForm() {
             onChange={handleFieldUpdate}
           />
 
-          <button type="submit">Add this workout!</button>
+          <button type="submit">Add this Client!</button>
         </div>
       </form>
     </div>
