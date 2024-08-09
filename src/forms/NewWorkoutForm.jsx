@@ -39,35 +39,40 @@ export default function NewWorkoutForm() {
       <div className="page-title">Add all your favorite clients in Here!</div>
       <form onSubmit={handleSubmit}>
         <div className="new-workout-form">
-          <label htmlFor="workout-name">Name: </label>
-          <input
-            id="workout-name"
-            name="workout_name"
-            value={formData.workout_name}
-            type="text"
-            className="workout-name"
-            onChange={handleFieldUpdate}
-          />
+          <div className="name-wrapper">
+            <label htmlFor="workout-name">Name: </label>
+            <input
+              id="workout-name"
+              name="workout_name"
+              value={formData.workout_name}
+              type="text"
+              className="workout-name"
+              onChange={handleFieldUpdate}
+            />
+          </div>
+          <div className="address-wrapper">
+            <label htmlFor="workout-description">Address: </label>
+            <input
+              id="workout-description"
+              name="description"
+              value={formData.description}
+              type="text"
+              className="workout-description"
+              onChange={handleFieldUpdate}
+            />
+          </div>
 
-          <label htmlFor="workout-description">Address: </label>
-          <input
-            id="workout-description"
-            name="description"
-            value={formData.description}
-            type="text"
-            className="workout-description"
-            onChange={handleFieldUpdate}
-          />
-
-          <label htmlFor="workout-length">Rate (per week)</label>
-          <input
-            id="workout-length"
-            name="length"
-            value={formData.length}
-            type="text"
-            className="workout-length"
-            onChange={handleFieldUpdate}
-          />
+          <div className="rate-wrapper">
+            <label htmlFor="workout-length">Rate (weekly):</label>
+            <input
+              id="workout-length"
+              name="length"
+              value={formData.length}
+              type="text"
+              className="workout-length"
+              onChange={handleFieldUpdate}
+            />
+          </div>
 
           <button type="submit">Add this Client!</button>
         </div>

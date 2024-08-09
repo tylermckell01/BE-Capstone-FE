@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import Cookies from "js-cookie";
 
 export default function MyWorkoutCards() {
@@ -246,33 +248,17 @@ export default function MyWorkoutCards() {
             ))}
           </div>
           <div className="button-container">
-            <button onClick={() => editWorkout(workout)}>edit</button>
+            {!isEditing && (
+              <button onClick={() => editWorkout(workout)}>
+                <i className="fa-regular fa-pen-to-square"></i>
+              </button>
+            )}
           </div>
           {isEditing && editingWorkout.workout_id === workout.workout_id && (
             <div className="edit-modal">
-              <div className="title">Add Exercise:</div>
-              <select
-                onChange={(e) => {
-                  setEditingWorkout((prev) => ({
-                    ...editingWorkout,
-                    exercises: [...prev.exercises, e.target.value],
-                  }));
-                  addExerciseToWorkout(workout.workout_id, e.target.value);
-                }}
-              >
-                <option value="none"></option>
-                {yourExerciseData.map((exercise) => (
-                  <option
-                    key={exercise.exercise_id}
-                    value={exercise.exercise_id}
-                  >
-                    {exercise.exercise_name}
-                  </option>
-                ))}
-              </select>
               {isEditing &&
                 editingWorkout.workout_id === workout.workout_id && (
-                  <button onClick={deleteWorkout}>delete workout</button>
+                  <button onClick={deleteWorkout}>delete client</button>
                 )}
               <button
                 onClick={() => {
@@ -290,6 +276,9 @@ export default function MyWorkoutCards() {
 
   return (
     <div className="my-workout-cards-container">
+      <div className="workout-page-title">
+        # of Clients: {yourWorkoutData.length}
+      </div>
       <div className="cards-wrapper">{renderWorkoutdata()}</div>
     </div>
   );

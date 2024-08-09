@@ -5,7 +5,7 @@ export default function Header() {
     <header className="header-container">
       <div className="header-wrapper">
         <NavLink to="/landing-page" className="header-link">
-          Fitness Tracker
+          Lawn Tracker
         </NavLink>
 
         <NavLink to="/login" className="header-link">

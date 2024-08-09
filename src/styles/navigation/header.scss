@@ -16,12 +16,14 @@
     .header-link {
       color: $tab-links;
       text-decoration: none;
+      margin: 3px;
       padding: 5px;
-      border-left: solid 1px $tab-links;
-      border-right: solid 1px $tab-links;
+      // border-left: solid 1px $tab-links;
+      // border-right: solid 1px $tab-links;
+
       &:hover {
         background-color: lightgray;
-        color: gray;
+        // color: $card-background;
         border-radius: 10px;
         border: 3px solid $tab-links;
       }
@@ -29,6 +31,7 @@
 
     button {
       background: none;
+      cursor: pointer;
     }
   }
 }

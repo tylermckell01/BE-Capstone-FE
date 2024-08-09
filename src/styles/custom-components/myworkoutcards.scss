@@ -1,7 +1,4 @@
 .my-workouts {
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
   text-align: center;
 
   .workout-page-title {
@@ -26,27 +23,60 @@
       flex-direction: column;
       border: solid 2px $tab-links;
       padding: 10px;
-      background-color: gray;
+      background-color: $card-background;
       border-radius: 10px;
       width: 90%;
 
-      // .workout-name {
-      //   border: solid 1px green;
-      // }
-
-      // .workout-description {
-      //   border: solid 1px darkcyan;
-      // }
-
       .button-container {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        padding-right: 10px;
 
         button {
           padding: 10px;
           border-radius: 10px;
+
+          &:hover {
+            background-color: $tab-links;
+          }
+        }
+      }
+      .title {
+        margin: 5px 0;
+
+        input {
+          background-color: lightgrey;
+          padding: 5px 5px 5px 10px;
+          margin-left: 5px;
+          border-radius: 10px;
+          border: none;
+        }
+      }
+
+      .edit-modal {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        gap: 10px;
+
+        button {
+          padding: 10px;
+          border-radius: 10px;
+          border: none;
+
+          &:hover {
+            background-color: $tab-links;
+            cursor: pointer;
+          }
         }
       }
     }
+  }
+  .header-link {
+    padding-bottom: 80px;
+    background-color: $tab-links;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
   }
 }

@@ -17,7 +17,7 @@ export default function AuthHeader() {
     <div className="header-container">
       <div className="header-wrapper">
         <NavLink to="/landing-page" className="header-link">
-          Fitness Tracker
+          Client Tracker
         </NavLink>
 
         <NavLink to="/my-workouts" className="header-link">
@@ -28,13 +28,13 @@ export default function AuthHeader() {
           + Client
         </NavLink>
 
-        <NavLink to="/add-gym" className="header-link">
+        {/* <NavLink to="/add-gym" className="header-link">
           Gyms
         </NavLink>
 
         <NavLink to="/add-exercise" className="header-link">
           Exercises
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to="/add-user" className="header-link">
           Users
