@@ -123,7 +123,8 @@ export default function MyWorkoutCards() {
           "Content-Type": "application/json",
           auth: authToken,
         },
-      }
+      },
+      setIsEditing(false)
     );
 
     if (response) {

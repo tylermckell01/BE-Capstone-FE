@@ -128,6 +128,7 @@ export default function NewUserForm() {
             <button type="submit">Add this user!</button>
           </div>
         </form>
+        <div className="existing-users-wrapper">Existing users...</div>
       </div>
     );
   };

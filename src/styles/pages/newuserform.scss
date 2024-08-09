@@ -7,7 +7,7 @@
     .page-title {
       background-color: $tab-links;
       width: 20%;
-      margin: 30px;
+      margin: 200px 30px 30px 30px;
       padding: 20px;
       font-size: x-large;
       border-radius: 10px;
@@ -17,6 +17,7 @@
     .new-user-form {
       border: solid 2px $tab-links;
       border-radius: 10px;
+      margin-top: 50px;
       padding: 10px;
       width: 30vw;
       display: flex;
@@ -27,6 +28,16 @@
       input {
         width: fit-content;
       }
+    }
+
+    .existing-users-wrapper {
+      background-color: $tab-links;
+      width: 20%;
+      margin: 100px 30px 30px;
+      padding: 20px;
+      font-size: x-large;
+      border-radius: 10px;
+      align-self: flex-start;
     }
   }
 
@@ -40,6 +51,7 @@
       display: flex;
       flex-direction: column;
       border: solid 2px $tab-links;
+
       padding: 10px;
       background-color: $card-background;
       border-radius: 10px;
