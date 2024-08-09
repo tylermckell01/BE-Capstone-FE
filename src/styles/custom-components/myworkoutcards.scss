@@ -4,7 +4,8 @@
   .workout-page-title {
     background-color: $tab-links;
     width: 20%;
-    margin: 30px;
+    margin: 200px 30px 30px 30px;
+
     padding: 20px;
     font-size: x-large;
     border-radius: 10px;
@@ -15,7 +16,7 @@
     // border: solid 1px blue;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    padding: 60px;
+    padding: 40px 70px 70px 70px;
     gap: 20px;
 
     .workout-info {
@@ -41,6 +42,7 @@
           }
         }
       }
+
       .title {
         margin: 5px 0;
 
@@ -71,12 +73,5 @@
         }
       }
     }
-  }
-  .header-link {
-    padding-bottom: 80px;
-    background-color: $tab-links;
-    padding: 15px;
-    border-radius: 10px;
-    text-decoration: none;
   }
 }

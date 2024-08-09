@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthInfo } from "../context/AuthContext";
+import { NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function LoginForm() {
@@ -63,7 +64,9 @@ export default function LoginForm() {
             onChange={handleFieldUpdate}
           />
         </div>
+        {/* <NavLink to="my-workouts"> */}
         <button type="submit">Login</button>
+        {/* </NavLink> */}
       </form>
     </div>
   );

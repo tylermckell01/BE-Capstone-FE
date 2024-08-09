@@ -40,9 +40,13 @@ export default function AuthHeader() {
           Users
         </NavLink>
 
-        <button onClick={handleLogout} className="header-link">
+        {/* <button onClick={handleLogout} className="header-link">
           Log Out
-        </button>
+        </button> */}
+
+        <NavLink to="login" onClick={handleLogout} className="header-link">
+          Log Out
+        </NavLink>
       </div>
     </div>
   );
