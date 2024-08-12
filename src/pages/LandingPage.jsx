@@ -12,12 +12,11 @@ export default function LandingPage() {
     <div className="landing-page-container">
       <div className="landing-page-wrapper">
         <div className="text">
-          Welcome to the FITNESS TRACKER where you can create workouts and
-          become a STUD... click one of the buttons in the header to start! OR
-          click on Arnold for motivation
+          Welcome to the Lawn TRACKER where you can track and maintain all your
+          clients
           <br />
         </div>
-        <img src={arnold} alt="arnold" onClick={playAudio} />
+        {/* <img src={arnold} alt="arnold" onClick={playAudio} /> */}
       </div>
     </div>
   );

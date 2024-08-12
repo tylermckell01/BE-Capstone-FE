@@ -74,6 +74,18 @@ export default function NewWorkoutForm() {
             />
           </div>
 
+          <div className="notes-wrapper">
+            <label htmlFor="notes">Additional Notes:</label>
+            <input
+              id="notes"
+              name="note"
+              // value={formData.length}
+              type="text"
+              className="notes"
+              // onChange={handleFieldUpdate}
+            />
+          </div>
+
           <button type="submit">Add this Client!</button>
         </div>
       </form>
