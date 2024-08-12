@@ -80,37 +80,37 @@ export default function MyWorkoutCards() {
     }
   };
 
-  const addExerciseToWorkout = async (workoutId, exerciseId) => {
-    let authToken = Cookies.get("auth_token");
+  // const addExerciseToWorkout = async (workoutId, exerciseId) => {
+  //   let authToken = Cookies.get("auth_token");
 
-    const response = await fetch("http://127.0.0.1:8086/workout/exercise", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        auth: authToken,
-      },
-      body: JSON.stringify({ workout_id: workoutId, exercise_id: exerciseId }),
-    })
-      .then((res) => res.json())
-      .then((data) => data);
+  //   const response = await fetch("http://127.0.0.1:8086/workout/exercise", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       auth: authToken,
+  //     },
+  //     body: JSON.stringify({ workout_id: workoutId, exercise_id: exerciseId }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => data);
 
-    setYourWorkoutData((prevWorkouts) =>
-      prevWorkouts.map((workout) =>
-        workout.workout_id === workoutId
-          ? {
-              ...workout,
-              exercises: [...workout.exercises, { exercise_id: exerciseId }],
-            }
-          : workout
-      )
-    );
+  //   setYourWorkoutData((prevWorkouts) =>
+  //     prevWorkouts.map((workout) =>
+  //       workout.workout_id === workoutId
+  //         ? {
+  //             ...workout,
+  //             exercises: [...workout.exercises, { exercise_id: exerciseId }],
+  //           }
+  //         : workout
+  //     )
+  //   );
 
-    if (response) {
-      await fetchWorkoutData();
-      await fetchExerciseData();
-      return response;
-    }
-  };
+  //   if (response) {
+  //     await fetchWorkoutData();
+  //     await fetchExerciseData();
+  //     return response;
+  //   }
+  // };
 
   const deleteWorkout = async () => {
     let authToken = Cookies.get("auth_token");
@@ -133,11 +133,6 @@ export default function MyWorkoutCards() {
     }
   };
 
-  const editWorkout = (workout) => {
-    setEditingWorkout(workout);
-    setIsEditing(true);
-  };
-
   const deleteExercise = async (exercise) => {
     let authToken = Cookies.get("auth_token");
 
@@ -157,6 +152,11 @@ export default function MyWorkoutCards() {
       await fetchWorkoutData();
       return response;
     }
+  };
+
+  const editWorkout = (workout) => {
+    setEditingWorkout(workout);
+    setIsEditing(true);
   };
 
   const renderWorkoutdata = () => {
@@ -224,30 +224,27 @@ export default function MyWorkoutCards() {
               <div className="title">Rate (per week): ${workout.length}</div>
             )}
           </div>
-          <div className="workout-exercises">
-            {workout.exercises.map((exercise, exerciseIdx) => (
-              <div key={exerciseIdx}>
-                <div className="exercise-name">
-                  {isEditing &&
-                  editingWorkout.workout_id === workout.workout_id ? (
-                    <div>
-                      Current Exercises: {exercise.exercise_name}
-                      <button onClick={() => deleteExercise(exercise)}>
-                        delete
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="title">
-                      Exercise Name: {exercise.exercise_name}
-                    </div>
-                  )}
-                </div>
-                <div className="title">
-                  Muscles Worked: {exercise.muscles_worked}
-                </div>
+
+          <div className="workout-notes">
+            {isEditing && editingWorkout.workout_id === workout.workout_id ? (
+              <div className="title">
+                Notes:
+                <input
+                  type="text"
+                  defaultValue={workout.note}
+                  onChange={(e) =>
+                    setEditingWorkout({
+                      ...editingWorkout,
+                      note: e.target.value,
+                    })
+                  }
+                />
               </div>
-            ))}
+            ) : (
+              <div className="title">Notes: {workout.note}</div>
+            )}
           </div>
+
           <div className="button-container">
             {!isEditing && (
               <button onClick={() => editWorkout(workout)}>

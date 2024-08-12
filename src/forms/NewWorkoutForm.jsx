@@ -6,6 +6,7 @@ export default function NewWorkoutForm() {
     workout_name: "",
     description: "",
     length: 0,
+    note: "",
     user_id: Cookies.get("user_id"),
   });
 
@@ -79,10 +80,10 @@ export default function NewWorkoutForm() {
             <input
               id="notes"
               name="note"
-              // value={formData.length}
+              value={formData.note}
               type="text"
               className="notes"
-              // onChange={handleFieldUpdate}
+              onChange={handleFieldUpdate}
             />
           </div>
 
