@@ -6,7 +6,7 @@ export default function NewWorkoutForm() {
     workout_name: "",
     description: "",
     length: 0,
-    note: "",
+    notes: "",
     user_id: Cookies.get("user_id"),
   });
 
@@ -30,7 +30,7 @@ export default function NewWorkoutForm() {
     });
 
     if (response) {
-      setFormData({ workout_name: "", description: "", length: 0 });
+      setFormData({ workout_name: "", description: "", length: 0, notes: "" });
       return response;
     }
   };
@@ -79,8 +79,8 @@ export default function NewWorkoutForm() {
             <label htmlFor="notes">Additional Notes:</label>
             <input
               id="notes"
-              name="note"
-              value={formData.note}
+              name="notes"
+              value={formData.notes}
               type="text"
               className="notes"
               onChange={handleFieldUpdate}

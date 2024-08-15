@@ -231,7 +231,7 @@ export default function MyWorkoutCards() {
                 Notes:
                 <input
                   type="text"
-                  defaultValue={workout.note}
+                  defaultValue={workout.notes}
                   onChange={(e) =>
                     setEditingWorkout({
                       ...editingWorkout,
@@ -241,7 +241,7 @@ export default function MyWorkoutCards() {
                 />
               </div>
             ) : (
-              <div className="title">Notes: {workout.note}</div>
+              <div className="title">Notes: {workout.notes}</div>
             )}
           </div>
 
